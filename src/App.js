@@ -1,28 +1,16 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { applyMiddleware, createStore } from 'redux'
+import thunk from 'redux-thunk'
+import reducers from './reducers/index'
+import { Loading } from './middlewares/Loading'
+import { Auth } from './middlewares/Auth'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+/**
+ * Create Middleware
+ */
+const middleware = applyMiddleware(thunk, Loading, Auth)
+    /**
+     * Create Store
+     */
+const store = createStore(reducers, middleware)
 
-export default App;
+export default store
